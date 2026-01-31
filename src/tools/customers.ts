@@ -9,7 +9,6 @@ import {
   GET_SEGMENT_MEMBERS,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetCustomersSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -44,7 +43,6 @@ export const GetSegmentMembersSchema = z.object({
   after: z.string().optional(),
 });
 
-// Tool implementations
 export async function getCustomers(
   args: z.infer<typeof GetCustomersSchema>
 ): Promise<unknown> {
@@ -110,7 +108,6 @@ export async function getSegmentMembers(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const customerTools = [
   {
     name: "get_customers",

@@ -14,7 +14,6 @@ import { inventoryTools } from "./tools/inventory.js";
 import { shopTools } from "./tools/shop.js";
 import { analyticsTools } from "./tools/analytics.js";
 
-// Tool definition type
 interface ToolDefinition {
   name: string;
   description: string;
@@ -23,7 +22,6 @@ interface ToolDefinition {
   handler: (args: any) => Promise<unknown>;
 }
 
-// Combine all tools - cast to allow different handler signatures
 const allTools: ToolDefinition[] = [
   ...(productTools as ToolDefinition[]),
   ...(orderTools as ToolDefinition[]),
@@ -36,13 +34,11 @@ const allTools: ToolDefinition[] = [
   ...(analyticsTools as ToolDefinition[]),
 ];
 
-// Create the MCP server
 const server = new McpServer({
   name: "shopify-admin-mcp",
   version: "1.0.0",
 });
 
-// Register all tools
 for (const tool of allTools) {
   const shape =
     tool.inputSchema instanceof z.ZodObject
@@ -79,7 +75,6 @@ for (const tool of allTools) {
   });
 }
 
-// Start the server
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);

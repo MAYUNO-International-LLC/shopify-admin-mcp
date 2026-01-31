@@ -8,7 +8,6 @@ import {
   GET_DISCOUNTS_COUNT,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetDiscountsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -38,7 +37,6 @@ export const GetDiscountsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter discounts"),
 });
 
-// Tool implementations
 export async function getDiscounts(
   args: z.infer<typeof GetDiscountsSchema>
 ): Promise<unknown> {
@@ -103,7 +101,6 @@ export async function getDiscountsCount(
   return { discountsCount: { count: data?.discountNodes?.totalCount ?? 0 } };
 }
 
-// Tool definitions for MCP
 export const discountTools = [
   {
     name: "get_discounts",

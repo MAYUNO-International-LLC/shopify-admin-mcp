@@ -1,4 +1,3 @@
-// Product Queries
 export const GET_PRODUCTS = `
   query GetProducts($first: Int, $after: String, $query: String) {
     products(first: $first, after: $after, query: $query) {
@@ -193,7 +192,6 @@ export const GET_PRODUCTS_COUNT = `
   }
 `;
 
-// Order Queries
 export const GET_ORDERS = `
   query GetOrders($first: Int, $after: String, $query: String) {
     orders(first: $first, after: $after, query: $query) {
@@ -463,7 +461,6 @@ export const GET_ABANDONED_CHECKOUTS_COUNT = `
   }
 `;
 
-// Customer Queries
 export const GET_CUSTOMERS = `
   query GetCustomers($first: Int, $after: String, $query: String) {
     customers(first: $first, after: $after, query: $query) {
@@ -625,7 +622,6 @@ export const GET_SEGMENT_MEMBERS = `
   }
 `;
 
-// Marketing Queries
 export const GET_MARKETING_ACTIVITIES = `
   query GetMarketingActivities($first: Int, $after: String) {
     marketingActivities(first: $first, after: $after) {
@@ -726,7 +722,6 @@ export const GET_MARKETING_EVENT = `
   }
 `;
 
-// Discount Queries
 export const GET_DISCOUNTS = `
   query GetDiscounts($first: Int, $after: String, $query: String) {
     discountNodes(first: $first, after: $after, query: $query) {
@@ -1059,7 +1054,6 @@ export const GET_DISCOUNTS_COUNT = `
   }
 `;
 
-// Collection Queries
 export const GET_COLLECTIONS = `
   query GetCollections($first: Int, $after: String, $query: String) {
     collections(first: $first, after: $after, query: $query) {
@@ -1142,7 +1136,6 @@ export const GET_COLLECTIONS_COUNT = `
   }
 `;
 
-// Inventory Queries
 export const GET_INVENTORY_ITEMS = `
   query GetInventoryItems($first: Int, $after: String, $query: String) {
     inventoryItems(first: $first, after: $after, query: $query) {
@@ -1294,7 +1287,6 @@ export const GET_LOCATION = `
   }
 `;
 
-// Shop Queries
 export const GET_SHOP = `
   query GetShop {
     shop {

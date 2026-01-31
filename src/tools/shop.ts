@@ -2,7 +2,6 @@ import { z } from "zod";
 import { executeGraphQL } from "../graphql/client.js";
 import { GET_SHOP, GET_SHOP_LOCALES, RUN_SHOPIFYQL } from "../graphql/queries.js";
 
-// Schemas
 export const GetShopSchema = z.object({});
 
 export const GetShopLocalesSchema = z.object({});
@@ -15,7 +14,6 @@ export const RunShopifyQLSchema = z.object({
     ),
 });
 
-// Tool implementations
 export async function getShop(
   args: z.infer<typeof GetShopSchema>
 ): Promise<unknown> {
@@ -42,7 +40,6 @@ export async function runShopifyQL(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const shopTools = [
   {
     name: "get_shop",

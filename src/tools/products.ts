@@ -10,7 +10,6 @@ import {
   GET_PRODUCTS_COUNT,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetProductsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -46,7 +45,6 @@ export const GetProductsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter products"),
 });
 
-// Tool implementations
 export async function getProducts(
   args: z.infer<typeof GetProductsSchema>
 ): Promise<unknown> {
@@ -163,7 +161,6 @@ export async function getProductsCount(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const productTools = [
   {
     name: "get_products",

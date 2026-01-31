@@ -2,10 +2,8 @@ import { z } from "zod";
 import { executeGraphQL } from "../graphql/client.js";
 import { RUN_SHOPIFYQL } from "../graphql/queries.js";
 
-// Common period enum for time-based aggregation
 const PeriodEnum = z.enum(["day", "week", "month"]).default("day");
 
-// Common base schema for all analytics tools
 const BaseAnalyticsSchema = z.object({
   since: z
     .string()
@@ -19,7 +17,6 @@ const BaseAnalyticsSchema = z.object({
     .describe('End of time range (e.g., "today", "-1d", "yesterday")'),
 });
 
-// Schemas for each analytics tool
 export const GetSalesOverTimeSchema = BaseAnalyticsSchema.extend({
   period: PeriodEnum.describe("Time period for grouping (day, week, or month)"),
 });
@@ -100,13 +97,11 @@ export const GetCampaignPerformanceOverTimeSchema = BaseAnalyticsSchema.extend({
     .describe("Maximum number of top campaigns to include"),
 });
 
-// Helper function to execute ShopifyQL queries
 async function runShopifyQLQuery(query: string): Promise<unknown> {
   const result = await executeGraphQL(RUN_SHOPIFYQL, { query });
   return result.data;
 }
 
-// Tool implementations
 export async function getSalesOverTime(
   args: z.infer<typeof GetSalesOverTimeSchema>
 ): Promise<unknown> {
@@ -184,7 +179,6 @@ export async function getCampaignPerformanceOverTime(
   return runShopifyQLQuery(query);
 }
 
-// Tool definitions for MCP
 export const analyticsTools = [
   {
     name: "get_sales_over_time",

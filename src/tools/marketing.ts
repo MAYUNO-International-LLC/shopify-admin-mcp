@@ -7,7 +7,6 @@ import {
   GET_MARKETING_EVENT,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetMarketingActivitiesSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -27,7 +26,6 @@ export const GetMarketingEventSchema = z.object({
   id: z.string().describe("The marketing event ID (gid://shopify/MarketingEvent/...)"),
 });
 
-// Tool implementations
 export async function getMarketingActivities(
   args: z.infer<typeof GetMarketingActivitiesSchema>
 ): Promise<unknown> {
@@ -71,7 +69,6 @@ export async function getMarketingEvent(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const marketingTools = [
   {
     name: "get_marketing_activities",

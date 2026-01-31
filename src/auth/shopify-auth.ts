@@ -45,16 +45,16 @@ export function loadCredentials(): Credentials {
   }
 }
 
-export async function getAccessToken(): Promise<string> {
-  const creds = loadCredentials();
+const TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000;
 
-  // Check if we have a valid cached token (with 5 minute buffer)
-  if (cachedToken && cachedToken.expiresAt > Date.now() + 5 * 60 * 1000) {
+export async function getAccessToken(): Promise<string> {
+  const credentials = loadCredentials();
+
+  if (cachedToken && cachedToken.expiresAt > Date.now() + TOKEN_REFRESH_BUFFER_MS) {
     return cachedToken.accessToken;
   }
 
-  // Request new token using client credentials grant
-  const tokenUrl = `https://${creds.shop}/admin/oauth/access_token`;
+  const tokenUrl = `https://${credentials.shop}/admin/oauth/access_token`;
 
   const response = await fetch(tokenUrl, {
     method: "POST",
@@ -64,8 +64,8 @@ export async function getAccessToken(): Promise<string> {
     },
     body: JSON.stringify({
       grant_type: "client_credentials",
-      client_id: creds.clientId,
-      client_secret: creds.clientSecret,
+      client_id: credentials.clientId,
+      client_secret: credentials.clientSecret,
     }),
   });
 
@@ -78,7 +78,6 @@ export async function getAccessToken(): Promise<string> {
 
   const tokenData: TokenResponse = await response.json();
 
-  // Cache the token
   cachedToken = {
     accessToken: tokenData.access_token,
     expiresAt: Date.now() + tokenData.expires_in * 1000,

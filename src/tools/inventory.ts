@@ -7,7 +7,6 @@ import {
   GET_LOCATION,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetInventoryItemsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -27,7 +26,6 @@ export const GetLocationSchema = z.object({
   id: z.string().describe("The location ID (gid://shopify/Location/...)"),
 });
 
-// Tool implementations
 export async function getInventoryItems(
   args: z.infer<typeof GetInventoryItemsSchema>
 ): Promise<unknown> {
@@ -71,7 +69,6 @@ export async function getLocation(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const inventoryTools = [
   {
     name: "get_inventory_items",

@@ -8,7 +8,6 @@ import {
   GET_ABANDONED_CHECKOUTS_COUNT,
 } from "../graphql/queries.js";
 
-// Schemas
 export const GetOrdersSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
@@ -38,7 +37,6 @@ export const GetAbandonedCheckoutsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter abandoned checkouts"),
 });
 
-// Tool implementations
 export async function getOrders(
   args: z.infer<typeof GetOrdersSchema>
 ): Promise<unknown> {
@@ -93,7 +91,6 @@ export async function getAbandonedCheckoutsCount(
   return result.data;
 }
 
-// Tool definitions for MCP
 export const orderTools = [
   {
     name: "get_orders",
