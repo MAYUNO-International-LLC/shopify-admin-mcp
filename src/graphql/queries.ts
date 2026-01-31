@@ -126,8 +126,7 @@ export const GET_PRODUCT_VARIANTS = `
           inventoryQuantity
           availableForSale
           barcode
-          weight
-          weightUnit
+          taxable
           selectedOptions {
             name
             value
@@ -608,9 +607,12 @@ export const GET_SEGMENT_MEMBERS = `
       edges {
         node {
           id
-          email
+          displayName
           firstName
           lastName
+          defaultEmailAddress {
+            emailAddress
+          }
           numberOfOrders
           amountSpent {
             amount
@@ -632,11 +634,12 @@ export const GET_MARKETING_ACTIVITIES = `
       nodes {
         id
         title
-        activityType
+        tactic
         status
-        statusBadgeType
+        statusBadgeTypeV2
+        statusLabel
         createdAt
-        scheduledToEndAt
+        updatedAt
         budget {
           budgetType
           total {
@@ -655,12 +658,12 @@ export const GET_MARKETING_ACTIVITY = `
     marketingActivity(id: $id) {
       id
       title
-      activityType
+      tactic
       status
-      statusBadgeType
+      statusBadgeTypeV2
       statusLabel
       createdAt
-      scheduledToEndAt
+      updatedAt
       budget {
         budgetType
         total {
@@ -841,7 +844,7 @@ export const GET_DISCOUNT = `
           codes(first: 10) {
             nodes {
               code
-              usageCount
+              asyncUsageCount
             }
           }
           customerGets {
@@ -881,7 +884,7 @@ export const GET_DISCOUNT = `
           codes(first: 10) {
             nodes {
               code
-              usageCount
+              asyncUsageCount
             }
           }
         }
@@ -897,7 +900,7 @@ export const GET_DISCOUNT = `
           codes(first: 10) {
             nodes {
               code
-              usageCount
+              asyncUsageCount
             }
           }
         }
@@ -1046,14 +1049,6 @@ export const GET_AUTOMATIC_DISCOUNTS = `
   }
 `;
 
-export const GET_DISCOUNTS_COUNT = `
-  query GetDiscountsCount($query: String) {
-    discountNodes(first: 1, query: $query) {
-      totalCount
-    }
-  }
-`;
-
 export const GET_COLLECTIONS = `
   query GetCollections($first: Int, $after: String, $query: String) {
     collections(first: $first, after: $after, query: $query) {
@@ -1152,7 +1147,10 @@ export const GET_INVENTORY_ITEMS = `
         inventoryLevels(first: 10) {
           nodes {
             id
-            available
+            quantities(names: ["available", "on_hand"]) {
+              name
+              quantity
+            }
             location {
               id
               name
@@ -1190,7 +1188,10 @@ export const GET_INVENTORY_ITEM = `
       inventoryLevels(first: 50) {
         nodes {
           id
-          available
+          quantities(names: ["available", "on_hand", "committed", "reserved"]) {
+            name
+            quantity
+          }
           location {
             id
             name
@@ -1268,7 +1269,10 @@ export const GET_LOCATION = `
       inventoryLevels(first: 50) {
         nodes {
           id
-          available
+          quantities(names: ["available", "on_hand", "committed", "reserved"]) {
+            name
+            quantity
+          }
           item {
             id
             sku

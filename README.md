@@ -5,7 +5,7 @@ An MCP (Model Context Protocol) server that provides read-only access to the Sho
 ## Features
 
 - **Read-only access** to Shopify Admin data
-- **36 core tools** for products, orders, customers, marketing, discounts, collections, inventory, and shop info
+- **35 core tools** for products, orders, customers, marketing, discounts, collections, inventory, and shop info
 - **12 ShopifyQL analytics tools** (optional, requires Level 2 access) for sales, conversions, campaigns, and more
 
 ## Quick Start
@@ -166,7 +166,6 @@ Restart Claude Code/Desktop, then try asking:
 | `get_discount` | Get single discount by ID |
 | `get_code_discounts` | List code-based discounts |
 | `get_automatic_discounts` | List automatic discounts |
-| `get_discounts_count` | Count discounts |
 
 ### Collection Tools
 | Tool | Description |
@@ -232,7 +231,7 @@ Restart Claude Code/Desktop, then try asking:
 ### Local Setup
 
 ```bash
-git clone https://github.com/your-username/shopify-admin-mcp.git
+git clone https://github.com/MAYUNO-International-LLC/shopify-admin-mcp.git
 cd shopify-admin-mcp
 npm install
 npm run build

@@ -5,7 +5,6 @@ import {
   GET_DISCOUNT,
   GET_CODE_DISCOUNTS,
   GET_AUTOMATIC_DISCOUNTS,
-  GET_DISCOUNTS_COUNT,
 } from "../graphql/queries.js";
 
 export const GetDiscountsSchema = z.object({
@@ -28,10 +27,6 @@ export const GetAutomaticDiscountsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
   query: z.string().optional().describe("Search query to filter automatic discounts"),
-});
-
-export const GetDiscountsCountSchema = z.object({
-  query: z.string().optional().describe("Search query to filter discounts"),
 });
 
 export async function getDiscounts(args: z.infer<typeof GetDiscountsSchema>): Promise<unknown> {
@@ -76,24 +71,6 @@ export async function getAutomaticDiscounts(
   return result.data;
 }
 
-export async function getDiscountsCount(
-  args: z.infer<typeof GetDiscountsCountSchema>
-): Promise<unknown> {
-  const result = await executeGraphQL(GET_DISCOUNTS_COUNT, {
-    query: args.query,
-  });
-
-  interface DiscountsCountData {
-    discountNodes: {
-      totalCount: number;
-    };
-  }
-
-  const data = result.data as DiscountsCountData;
-
-  return { discountsCount: { count: data?.discountNodes?.totalCount ?? 0 } };
-}
-
 export const discountTools = [
   {
     name: "get_discounts",
@@ -120,11 +97,5 @@ export const discountTools = [
     description: "List only automatic discounts (applied automatically without a code).",
     inputSchema: GetAutomaticDiscountsSchema,
     handler: getAutomaticDiscounts,
-  },
-  {
-    name: "get_discounts_count",
-    description: "Count the total number of discounts, optionally filtered by a query.",
-    inputSchema: GetDiscountsCountSchema,
-    handler: getDiscountsCount,
   },
 ];
