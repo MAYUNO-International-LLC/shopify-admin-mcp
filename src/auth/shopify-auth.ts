@@ -29,8 +29,7 @@ export function loadCredentials(): Credentials {
     return credentials;
   }
 
-  const credentialsPath =
-    process.env.SHOPIFY_CREDENTIALS_PATH || "./credentials.json";
+  const credentialsPath = process.env.SHOPIFY_CREDENTIALS_PATH || "./credentials.json";
 
   try {
     const fileContent = readFileSync(credentialsPath, "utf-8");

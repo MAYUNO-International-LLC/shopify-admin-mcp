@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { executeGraphQL, extractNodes } from "../graphql/client.js";
+import { executeGraphQL } from "../graphql/client.js";
 import {
   GET_PRODUCTS,
   GET_PRODUCT,
@@ -45,9 +45,7 @@ export const GetProductsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter products"),
 });
 
-export async function getProducts(
-  args: z.infer<typeof GetProductsSchema>
-): Promise<unknown> {
+export async function getProducts(args: z.infer<typeof GetProductsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_PRODUCTS, {
     first: args.first ?? 50,
     after: args.after,
@@ -57,9 +55,7 @@ export async function getProducts(
   return result.data;
 }
 
-export async function getProduct(
-  args: z.infer<typeof GetProductSchema>
-): Promise<unknown> {
+export async function getProduct(args: z.infer<typeof GetProductSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_PRODUCT, {
     id: args.id,
   });
@@ -79,9 +75,7 @@ export async function getProductVariants(
   return result.data;
 }
 
-export async function getProductTags(
-  args: z.infer<typeof GetProductTagsSchema>
-): Promise<unknown> {
+export async function getProductTags(args: z.infer<typeof GetProductTagsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_PRODUCT_TAGS, {
     first: args.first ?? 250,
     after: args.after,

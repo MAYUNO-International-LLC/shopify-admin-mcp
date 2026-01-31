@@ -15,9 +15,7 @@ export const GetCustomersSchema = z.object({
   query: z
     .string()
     .optional()
-    .describe(
-      "Search query to filter customers (e.g., 'email:*@example.com', 'orders_count:>5')"
-    ),
+    .describe("Search query to filter customers (e.g., 'email:*@example.com', 'orders_count:>5')"),
 });
 
 export const GetCustomerSchema = z.object({
@@ -43,9 +41,7 @@ export const GetSegmentMembersSchema = z.object({
   after: z.string().optional(),
 });
 
-export async function getCustomers(
-  args: z.infer<typeof GetCustomersSchema>
-): Promise<unknown> {
+export async function getCustomers(args: z.infer<typeof GetCustomersSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_CUSTOMERS, {
     first: args.first ?? 50,
     after: args.after,
@@ -55,9 +51,7 @@ export async function getCustomers(
   return result.data;
 }
 
-export async function getCustomer(
-  args: z.infer<typeof GetCustomerSchema>
-): Promise<unknown> {
+export async function getCustomer(args: z.infer<typeof GetCustomerSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_CUSTOMER, {
     id: args.id,
   });
@@ -75,9 +69,7 @@ export async function getCustomersCount(
   return result.data;
 }
 
-export async function getSegments(
-  args: z.infer<typeof GetSegmentsSchema>
-): Promise<unknown> {
+export async function getSegments(args: z.infer<typeof GetSegmentsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_SEGMENTS, {
     first: args.first ?? 50,
     after: args.after,
@@ -86,9 +78,7 @@ export async function getSegments(
   return result.data;
 }
 
-export async function getSegment(
-  args: z.infer<typeof GetSegmentSchema>
-): Promise<unknown> {
+export async function getSegment(args: z.infer<typeof GetSegmentSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_SEGMENT, {
     id: args.id,
   });

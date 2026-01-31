@@ -14,25 +14,21 @@ export const RunShopifyQLSchema = z.object({
     ),
 });
 
-export async function getShop(
-  args: z.infer<typeof GetShopSchema>
-): Promise<unknown> {
+export async function getShop(_args: z.infer<typeof GetShopSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_SHOP);
 
   return result.data;
 }
 
 export async function getShopLocales(
-  args: z.infer<typeof GetShopLocalesSchema>
+  _args: z.infer<typeof GetShopLocalesSchema>
 ): Promise<unknown> {
   const result = await executeGraphQL(GET_SHOP_LOCALES);
 
   return result.data;
 }
 
-export async function runShopifyQL(
-  args: z.infer<typeof RunShopifyQLSchema>
-): Promise<unknown> {
+export async function runShopifyQL(args: z.infer<typeof RunShopifyQLSchema>): Promise<unknown> {
   const result = await executeGraphQL(RUN_SHOPIFYQL, {
     query: args.query,
   });
@@ -50,7 +46,8 @@ export const shopTools = [
   },
   {
     name: "get_shop_locales",
-    description: "Get all locales configured for the shop, including primary and published languages.",
+    description:
+      "Get all locales configured for the shop, including primary and published languages.",
     inputSchema: GetShopLocalesSchema,
     handler: getShopLocales,
   },

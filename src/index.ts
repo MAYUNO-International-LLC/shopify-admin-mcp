@@ -59,8 +59,7 @@ for (const tool of allTools) {
         ],
       };
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
 
       return {
         content: [

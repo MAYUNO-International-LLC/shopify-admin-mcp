@@ -1,10 +1,6 @@
 import { z } from "zod";
 import { executeGraphQL } from "../graphql/client.js";
-import {
-  GET_COLLECTIONS,
-  GET_COLLECTION,
-  GET_COLLECTIONS_COUNT,
-} from "../graphql/queries.js";
+import { GET_COLLECTIONS, GET_COLLECTION, GET_COLLECTIONS_COUNT } from "../graphql/queries.js";
 
 export const GetCollectionsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
@@ -20,9 +16,7 @@ export const GetCollectionsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter collections"),
 });
 
-export async function getCollections(
-  args: z.infer<typeof GetCollectionsSchema>
-): Promise<unknown> {
+export async function getCollections(args: z.infer<typeof GetCollectionsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_COLLECTIONS, {
     first: args.first ?? 50,
     after: args.after,
@@ -32,9 +26,7 @@ export async function getCollections(
   return result.data;
 }
 
-export async function getCollection(
-  args: z.infer<typeof GetCollectionSchema>
-): Promise<unknown> {
+export async function getCollection(args: z.infer<typeof GetCollectionSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_COLLECTION, {
     id: args.id,
   });

@@ -37,9 +37,7 @@ export const GetAbandonedCheckoutsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter abandoned checkouts"),
 });
 
-export async function getOrders(
-  args: z.infer<typeof GetOrdersSchema>
-): Promise<unknown> {
+export async function getOrders(args: z.infer<typeof GetOrdersSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_ORDERS, {
     first: args.first ?? 50,
     after: args.after,
@@ -49,9 +47,7 @@ export async function getOrders(
   return result.data;
 }
 
-export async function getOrder(
-  args: z.infer<typeof GetOrderSchema>
-): Promise<unknown> {
+export async function getOrder(args: z.infer<typeof GetOrderSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_ORDER, {
     id: args.id,
   });
@@ -59,9 +55,7 @@ export async function getOrder(
   return result.data;
 }
 
-export async function getOrdersCount(
-  args: z.infer<typeof GetOrdersCountSchema>
-): Promise<unknown> {
+export async function getOrdersCount(args: z.infer<typeof GetOrdersCountSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_ORDERS_COUNT, {
     query: args.query,
   });

@@ -65,10 +65,7 @@ export async function executeGraphQL<T = unknown>(
   return result;
 }
 
-export function extractNodes<T>(connection: {
-  edges?: Array<{ node: T }>;
-  nodes?: T[];
-}): T[] {
+export function extractNodes<T>(connection: { edges?: Array<{ node: T }>; nodes?: T[] }): T[] {
   if (connection.nodes) {
     return connection.nodes;
   }

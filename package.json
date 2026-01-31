@@ -13,9 +13,23 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsc --watch",
-    "prepublishOnly": "npm run build"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
   },
-  "keywords": ["mcp", "shopify", "admin", "graphql", "claude", "anthropic"],
+  "keywords": [
+    "mcp",
+    "shopify",
+    "admin",
+    "graphql",
+    "claude",
+    "anthropic"
+  ],
   "author": "Michael Reimer <michael.reimer@mayuno.ch>",
   "license": "MIT",
   "repository": {
@@ -32,7 +46,13 @@
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "eslint": "^9.39.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.54.0"
   }
 }

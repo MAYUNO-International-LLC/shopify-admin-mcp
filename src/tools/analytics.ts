@@ -8,9 +8,7 @@ const BaseAnalyticsSchema = z.object({
   since: z
     .string()
     .default("-30d")
-    .describe(
-      'Start of time range (e.g., "-30d", "-3m", "last_month", "last_quarter")'
-    ),
+    .describe('Start of time range (e.g., "-30d", "-3m", "last_month", "last_quarter")'),
   until: z
     .string()
     .default("today")
@@ -22,21 +20,11 @@ export const GetSalesOverTimeSchema = BaseAnalyticsSchema.extend({
 });
 
 export const GetSalesByProductSchema = BaseAnalyticsSchema.extend({
-  limit: z
-    .number()
-    .min(1)
-    .max(100)
-    .default(10)
-    .describe("Maximum number of products to return"),
+  limit: z.number().min(1).max(100).default(10).describe("Maximum number of products to return"),
 });
 
 export const GetSalesByRegionSchema = BaseAnalyticsSchema.extend({
-  limit: z
-    .number()
-    .min(1)
-    .max(100)
-    .default(50)
-    .describe("Maximum number of regions to return"),
+  limit: z.number().min(1).max(100).default(50).describe("Maximum number of regions to return"),
 });
 
 export const GetSalesByTrafficSourceSchema = BaseAnalyticsSchema.extend({
@@ -61,30 +49,15 @@ export const GetAverageOrderValueSchema = BaseAnalyticsSchema.extend({
 });
 
 export const GetTopCustomersSchema = BaseAnalyticsSchema.extend({
-  limit: z
-    .number()
-    .min(1)
-    .max(100)
-    .default(10)
-    .describe("Maximum number of customers to return"),
+  limit: z.number().min(1).max(100).default(10).describe("Maximum number of customers to return"),
 });
 
 export const GetConversionsByChannelSchema = BaseAnalyticsSchema.extend({
-  limit: z
-    .number()
-    .min(1)
-    .max(100)
-    .default(20)
-    .describe("Maximum number of channels to return"),
+  limit: z.number().min(1).max(100).default(20).describe("Maximum number of channels to return"),
 });
 
 export const GetCampaignPerformanceSchema = BaseAnalyticsSchema.extend({
-  limit: z
-    .number()
-    .min(1)
-    .max(100)
-    .default(20)
-    .describe("Maximum number of campaigns to return"),
+  limit: z.number().min(1).max(100).default(20).describe("Maximum number of campaigns to return"),
 });
 
 export const GetCampaignPerformanceOverTimeSchema = BaseAnalyticsSchema.extend({

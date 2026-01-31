@@ -48,9 +48,7 @@ export async function getInventoryItem(
   return result.data;
 }
 
-export async function getLocations(
-  args: z.infer<typeof GetLocationsSchema>
-): Promise<unknown> {
+export async function getLocations(args: z.infer<typeof GetLocationsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_LOCATIONS, {
     first: args.first ?? 50,
     after: args.after,
@@ -59,9 +57,7 @@ export async function getLocations(
   return result.data;
 }
 
-export async function getLocation(
-  args: z.infer<typeof GetLocationSchema>
-): Promise<unknown> {
+export async function getLocation(args: z.infer<typeof GetLocationSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_LOCATION, {
     id: args.id,
   });

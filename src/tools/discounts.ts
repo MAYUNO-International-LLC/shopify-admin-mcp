@@ -11,10 +11,7 @@ import {
 export const GetDiscountsSchema = z.object({
   first: z.number().min(1).max(250).default(50).optional(),
   after: z.string().optional(),
-  query: z
-    .string()
-    .optional()
-    .describe("Search query to filter discounts (e.g., 'status:active')"),
+  query: z.string().optional().describe("Search query to filter discounts (e.g., 'status:active')"),
 });
 
 export const GetDiscountSchema = z.object({
@@ -37,9 +34,7 @@ export const GetDiscountsCountSchema = z.object({
   query: z.string().optional().describe("Search query to filter discounts"),
 });
 
-export async function getDiscounts(
-  args: z.infer<typeof GetDiscountsSchema>
-): Promise<unknown> {
+export async function getDiscounts(args: z.infer<typeof GetDiscountsSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_DISCOUNTS, {
     first: args.first ?? 50,
     after: args.after,
@@ -49,9 +44,7 @@ export async function getDiscounts(
   return result.data;
 }
 
-export async function getDiscount(
-  args: z.infer<typeof GetDiscountSchema>
-): Promise<unknown> {
+export async function getDiscount(args: z.infer<typeof GetDiscountSchema>): Promise<unknown> {
   const result = await executeGraphQL(GET_DISCOUNT, {
     id: args.id,
   });
@@ -118,15 +111,13 @@ export const discountTools = [
   },
   {
     name: "get_code_discounts",
-    description:
-      "List only code-based discounts (requires customer to enter a code at checkout).",
+    description: "List only code-based discounts (requires customer to enter a code at checkout).",
     inputSchema: GetCodeDiscountsSchema,
     handler: getCodeDiscounts,
   },
   {
     name: "get_automatic_discounts",
-    description:
-      "List only automatic discounts (applied automatically without a code).",
+    description: "List only automatic discounts (applied automatically without a code).",
     inputSchema: GetAutomaticDiscountsSchema,
     handler: getAutomaticDiscounts,
   },
