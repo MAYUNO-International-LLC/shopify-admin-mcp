@@ -5,9 +5,8 @@ An MCP (Model Context Protocol) server that provides read-only access to the Sho
 ## Features
 
 - **Read-only access** to Shopify Admin data
-- **48 tools** covering products, orders, customers, marketing, discounts, collections, inventory, shop info, and analytics
-- **ShopifyQL support** for custom analytics queries
-- **Pre-built analytics** for sales, conversions, campaigns, and more
+- **36 core tools** for products, orders, customers, marketing, discounts, collections, inventory, and shop info
+- **12 ShopifyQL analytics tools** (optional, requires Level 2 access) for sales, conversions, campaigns, and more
 
 ## Quick Start
 
@@ -28,6 +27,40 @@ An MCP (Model Context Protocol) server that provides read-only access to the Sho
    - `read_reports`
 5. Click **Save**, then click **Install app**
 6. In the **API credentials** tab, copy the **API key** and **API secret key**
+
+### ShopifyQL & Analytics Requirements
+
+The ShopifyQL-powered analytics tools (`run_shopifyql`, `get_sales_over_time`, `get_top_customers`, etc.) require additional access beyond API scopes:
+
+1. **`read_reports` scope** - Already included in the scopes above
+2. **Level 2 Protected Customer Data Access** - Required for ALL ShopifyQL queries, even those not accessing customer data
+
+To enable Level 2 access:
+
+1. Go to the [Shopify Partner Dashboard](https://partners.shopify.com/)
+2. Navigate to **Apps → Your App → API access**
+3. Under **Protected customer data**, request Level 2 access
+4. Complete the required security attestations
+5. Wait for Shopify approval (may take a few days)
+
+**By default, ShopifyQL tools are disabled** to prevent errors for users without Level 2 access. Once approved, enable them by adding the environment variable:
+
+```json
+{
+  "mcpServers": {
+    "shopify-admin": {
+      "command": "npx",
+      "args": ["-y", "shopify-admin-mcp"],
+      "env": {
+        "SHOPIFY_CREDENTIALS_PATH": "/path/to/credentials.json",
+        "SHOPIFY_SHOPIFYQL_ENABLED": "true"
+      }
+    }
+  }
+}
+```
+
+> **Note:** Non-ShopifyQL tools (products, orders, customers, etc.) work without Level 2 access.
 
 ### 2. Create Credentials File
 

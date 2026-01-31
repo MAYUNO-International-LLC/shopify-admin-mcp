@@ -11,8 +11,10 @@ import { marketingTools } from "./tools/marketing.js";
 import { discountTools } from "./tools/discounts.js";
 import { collectionTools } from "./tools/collections.js";
 import { inventoryTools } from "./tools/inventory.js";
-import { shopTools } from "./tools/shop.js";
+import { shopTools, shopifyqlTools } from "./tools/shop.js";
 import { analyticsTools } from "./tools/analytics.js";
+
+const shopifyqlEnabled = process.env.SHOPIFY_SHOPIFYQL_ENABLED === "true";
 
 interface ToolDefinition {
   name: string;
@@ -31,7 +33,8 @@ const allTools: ToolDefinition[] = [
   ...(collectionTools as ToolDefinition[]),
   ...(inventoryTools as ToolDefinition[]),
   ...(shopTools as ToolDefinition[]),
-  ...(analyticsTools as ToolDefinition[]),
+  ...(shopifyqlEnabled ? (shopifyqlTools as ToolDefinition[]) : []),
+  ...(shopifyqlEnabled ? (analyticsTools as ToolDefinition[]) : []),
 ];
 
 const server = new McpServer({
@@ -40,38 +43,45 @@ const server = new McpServer({
 });
 
 for (const tool of allTools) {
-  const shape =
+  const inputSchema =
     tool.inputSchema instanceof z.ZodObject
       ? (tool.inputSchema as z.ZodObject<z.ZodRawShape>).shape
       : {};
 
-  server.tool(tool.name, tool.description, shape, async (args) => {
-    try {
-      const validatedArgs = tool.inputSchema.parse(args);
-      const result = await tool.handler(validatedArgs);
+  server.registerTool(
+    tool.name,
+    {
+      description: tool.description,
+      inputSchema,
+    },
+    async (args) => {
+      try {
+        const validatedArgs = tool.inputSchema.parse(args);
+        const result = await tool.handler(validatedArgs);
 
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(result, null, 2),
-          },
-        ],
-      };
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
 
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Error: ${errorMessage}`,
-          },
-        ],
-        isError: true,
-      };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Error: ${errorMessage}`,
+            },
+          ],
+          isError: true,
+        };
+      }
     }
-  });
+  );
 }
 
 async function main() {

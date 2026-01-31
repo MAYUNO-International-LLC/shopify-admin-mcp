@@ -51,6 +51,9 @@ export const shopTools = [
     inputSchema: GetShopLocalesSchema,
     handler: getShopLocales,
   },
+];
+
+export const shopifyqlTools = [
   {
     name: "run_shopifyql",
     description:
