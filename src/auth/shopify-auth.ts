@@ -89,7 +89,3 @@ export function getShopDomain(): string {
   const creds = loadCredentials();
   return creds.shop;
 }
-
-export function clearTokenCache(): void {
-  cachedToken = null;
-}

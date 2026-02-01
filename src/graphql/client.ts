@@ -65,28 +65,4 @@ export async function executeGraphQL<T = unknown>(
   return result;
 }
 
-export function extractNodes<T>(connection: { edges?: Array<{ node: T }>; nodes?: T[] }): T[] {
-  if (connection.nodes) {
-    return connection.nodes;
-  }
-  if (connection.edges) {
-    return connection.edges.map((edge) => edge.node);
-  }
-  return [];
-}
 
-export function buildPaginationArgs(
-  first?: number,
-  after?: string,
-  last?: number,
-  before?: string
-): string {
-  const args: string[] = [];
-
-  if (first !== undefined) args.push(`first: ${first}`);
-  if (after) args.push(`after: "${after}"`);
-  if (last !== undefined) args.push(`last: ${last}`);
-  if (before) args.push(`before: "${before}"`);
-
-  return args.join(", ");
-}
