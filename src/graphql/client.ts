@@ -1,6 +1,6 @@
 import { getAccessToken, getShopDomain } from "../auth/shopify-auth.js";
 
-const API_VERSION = "2024-10";
+const API_VERSION = "2026-01";
 
 export interface GraphQLResponse<T = unknown> {
   data?: T;
