@@ -23,6 +23,7 @@ An MCP (Model Context Protocol) server that provides read-only access to the Sho
    - `read_discounts`
    - `read_inventory`
    - `read_locations`
+   - `read_locales`
    - `read_analytics`
    - `read_reports`
 5. Click **Save**, then click **Install app**

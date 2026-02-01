@@ -64,5 +64,3 @@ export async function executeGraphQL<T = unknown>(
 
   return result;
 }
-
-
