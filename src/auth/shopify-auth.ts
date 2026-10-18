@@ -38,7 +38,7 @@ export function loadCredentials(): Credentials {
     return credentials;
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(`Failed to load credentials: ${error.message}`);
+      throw new Error(`Failed to load credentials: ${error.message}`, { cause: error });
     }
     throw error;
   }
